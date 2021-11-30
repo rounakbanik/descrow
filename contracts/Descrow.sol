@@ -17,8 +17,11 @@ contract Descrow {
     mapping(address => bool) private _cancelStatus;
     bool private _isActive;
 
+    // Contract address
+    address public contractAddress;
+
     // Get contract status at a glance
-    struct contractStatus {
+    struct ContractStatus {
         address buyer;
         address seller;
         uint salePrice;
@@ -27,13 +30,14 @@ contract Descrow {
         bool buyerCancel;
         bool sellerCancel;
         bool active;
+        address conAddr;
     }
 
     // Event to detect change in contract state
     event ContractStateChanged(
         address indexed buyer,
         address indexed seller,
-        contractStatus state
+        ContractStatus state
     );
 
     
@@ -51,6 +55,9 @@ contract Descrow {
 
         // Set contract state to active
         _isActive = true;
+
+        // Store contract address
+        contractAddress = address(this);
     } 
 
     modifier onlyParties() {
@@ -183,8 +190,8 @@ contract Descrow {
     }
 
     // Get current status of contract
-    function getStatus() public view returns (contractStatus memory) {
-        return contractStatus(
+    function getStatus() public view returns (ContractStatus memory) {
+        return ContractStatus(
             _buyer,
             _seller,
             _salePrice,
@@ -192,7 +199,8 @@ contract Descrow {
             _stakeStatus[_seller],
             _cancelStatus[_buyer],
             _cancelStatus[_seller],
-            _isActive
+            _isActive,
+            contractAddress
         );
     }
 }
