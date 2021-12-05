@@ -16,6 +16,7 @@ contract Descrow {
     mapping(address => bool) private _stakeStatus;
     mapping(address => bool) private _cancelStatus;
     bool private _isActive;
+    bool private _isCancelled;
 
     // Contract address
     address public contractAddress;
@@ -30,6 +31,7 @@ contract Descrow {
         bool buyerCancel;
         bool sellerCancel;
         bool active;
+        bool cancelled;
         address conAddr;
     }
 
@@ -147,6 +149,10 @@ contract Descrow {
                 _cancelStatus[parties[i]] = false;
                 _stakeStatus[parties[i]] = false;
             }
+
+            // Set contract to inactive and cancelled
+            _isActive = false;
+            _isCancelled = true;
         }
 
         // Emit state change event
@@ -200,6 +206,7 @@ contract Descrow {
             _cancelStatus[_buyer],
             _cancelStatus[_seller],
             _isActive,
+            _isCancelled,
             contractAddress
         );
     }
