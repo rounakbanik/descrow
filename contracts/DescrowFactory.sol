@@ -15,6 +15,11 @@ contract DescrowFactory {
     mapping(address => Descrow[]) public partyToContractMapping;
     mapping(address => uint ) public contractToIndexMapping;
 
+    event ContractCreated(address indexed buyer, 
+                          address indexed seller, 
+                          uint price,
+                          address contractAddress);
+
     function createContract(address payable _buyer, 
                             address payable _seller, 
                             uint _price) public {
@@ -34,6 +39,9 @@ contract DescrowFactory {
         // Map contract to both parties involved
         partyToContractMapping[_buyer].push(descrow);
         partyToContractMapping[_seller].push(descrow);
+
+        // Emit new contract creation event
+        emit ContractCreated(_buyer, _seller, _price, conAddr);
     }
 
     // Return all contracts that a party is participating in
