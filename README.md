@@ -44,4 +44,4 @@ The current protocol requires both parties participating to proactively stake, c
 
 <img src='descrow-app.png' height='500' width='1000'>
 
-A demo app running on the Polygon MATIC Mumbai testnet can be accessed (here)[https://descrow-eight.vercel.app].
+A demo app running on the Polygon MATIC Mumbai testnet can be accessed [here](https://descrow-eight.vercel.app).
