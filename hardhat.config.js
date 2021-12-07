@@ -1,4 +1,8 @@
 require("@nomiclabs/hardhat-waffle");
+require("@nomiclabs/hardhat-etherscan");
+require('dotenv').config();
+
+const { PRIVATE_KEY, POLYGONSCAN_API, POLYGON_URL } = process.env;
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -18,4 +22,13 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  */
 module.exports = {
   solidity: "0.8.4",
+  networks: {
+    mumbai: {
+      url: POLYGON_URL,
+      accounts: [PRIVATE_KEY]
+    }
+  },
+  etherscan: {
+    apiKey: POLYGONSCAN_API
+  }
 };

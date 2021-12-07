@@ -46,6 +46,9 @@ contract Descrow {
     // Set buyer, seller, and price during contract creation
     constructor(address payable _buyerParty, address payable _sellerParty, uint _price) {
 
+        // Buyer and seller can't be the same
+        require(_buyerParty != _sellerParty, "Buyer and seller can't be the same");
+
         // Set participating parties and agreed price
         _buyer = _buyerParty;
         _seller = _sellerParty;
